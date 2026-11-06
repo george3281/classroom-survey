@@ -28,7 +28,7 @@ This roadmap breaks the implementation into small, testable phases ordered from 
 
 # Phase 2 — Supabase Project and Database
 
-- [ ] Create a Supabase project.
+- [x] Create a Supabase project.
 - [x] Create the `surveys` table.
 - [x] Create the `questions` table.
 - [x] Create the `choices` table.
@@ -224,10 +224,10 @@ This roadmap breaks the implementation into small, testable phases ordered from 
 # Phase 15 — Deployment
 
 - [x] Push the project to GitHub.
-- [ ] Create the Render static site. (Replaces Cloudflare Pages; see `render.yaml`.)
-- [ ] Connect Render to the GitHub repository.
-- [ ] Configure production environment variables.
-- [ ] Deploy the application.
+- [x] Create the Render static site. (Replaces Cloudflare Pages; see `render.yaml`.)
+- [x] Connect Render to the GitHub repository.
+- [x] Configure production environment variables.
+- [x] Deploy the application.
 - [x] Configure SPA routing. (`render.yaml` rewrite `/*` -> `/index.html`.)
 - [ ] Verify production login.
 - [ ] Verify QR codes point to the production URL.

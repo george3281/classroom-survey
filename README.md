@@ -1,5 +1,7 @@
 # Classroom Survey
 
+**Live app:** https://classroom-survey.onrender.com/
+
 A classroom survey web app. The instructor builds a survey, activates it, and projects a QR code. Students scan it, answer on their phones without logging in, and the instructor sees counts, percentages, and charts, and can export a CSV.
 
 - **Frontend:** React 19 + TypeScript + Vite + Tailwind CSS, React Router, Recharts, `qrcode`

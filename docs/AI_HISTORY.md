@@ -82,7 +82,14 @@ The agent started Docker Desktop, ran `npx supabase init` and `npx supabase star
 - The student chose **Render** over Cloudflare Pages. The agent added `render.yaml` (static site, Node 22, `/*` -> `/index.html` rewrite, env vars entered in the dashboard) and removed the Cloudflare-only `public/_redirects`.
 - **Verification:** ran `npm ci && npm run build` on the committed files inside a Linux `node:22` Docker container, the same environment Render builds in. The build succeeded.
 
-## 9. Remaining steps for the student
+## 9. Production check
+
+The student deployed with the Render Blueprint at https://classroom-survey.onrender.com/. The agent checked it from outside:
+- `/`, `/dashboard`, `/s/<anything>` all return 200 (rewrite works).
+- The built bundle contains the hosted Supabase URL and a **publishable** key. The `sb_secret_` string found in it is only supabase-js's own key-type check, not a key.
+- Anonymous REST calls against the hosted database: `surveys`, `responses`, `answers` return `[]`; inserting a survey fails RLS; `activate_survey` is denied; `auth/v1/signup` returns `signup_disabled`.
+
+## 10. Remaining steps for the student
 
 These need the student's own accounts, so they are done by hand:
 - Create the hosted Supabase project and run the migration.

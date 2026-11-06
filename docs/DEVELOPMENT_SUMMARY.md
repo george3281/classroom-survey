@@ -1,7 +1,7 @@
 # Development Summary - Classroom Survey Web App
 
 **Repository:** https://github.com/george3281/classroom-survey  
-**Deployed app:** `<Render URL>`  
+**Deployed app:** https://classroom-survey.onrender.com/  
 **AI coding agent:** Claude Code (Anthropic), run from the Claude desktop app
 
 ## 1. Using the specifications to guide the agent
