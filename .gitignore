@@ -31,3 +31,6 @@ dist-ssr
 # Supabase CLI local state
 supabase/.branches
 supabase/.temp
+
+# Private, never commit (instructor login)
+private/
