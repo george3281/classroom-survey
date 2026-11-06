@@ -223,7 +223,7 @@ This roadmap breaks the implementation into small, testable phases ordered from 
 
 # Phase 15 — Deployment
 
-- [ ] Push the project to GitHub.
+- [x] Push the project to GitHub.
 - [ ] Create the Cloudflare Pages site.
 - [ ] Connect Cloudflare Pages to the GitHub repository.
 - [ ] Configure production environment variables.

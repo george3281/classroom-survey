@@ -1,6 +1,6 @@
 # Development Summary - Classroom Survey Web App
 
-**Repository:** `<GitHub URL>`  
+**Repository:** https://github.com/george3281/classroom-survey  
 **Deployed app:** `<Cloudflare Pages URL>`  
 **AI coding agent:** Claude Code (Anthropic), run from the Claude desktop app
 
