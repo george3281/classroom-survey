@@ -89,11 +89,19 @@ The student deployed with the Render Blueprint at https://classroom-survey.onren
 - The built bundle contains the hosted Supabase URL and a **publishable** key. The `sb_secret_` string found in it is only supabase-js's own key-type check, not a key.
 - Anonymous REST calls against the hosted database: `surveys`, `responses`, `answers` return `[]`; inserting a survey fails RLS; `activate_survey` is denied; `auth/v1/signup` returns `signup_disabled`.
 
-## 10. Remaining steps for the student
+## 10. Instructor access and submission package
 
-These need the student's own accounts, so they are done by hand:
-- Create the hosted Supabase project and run the migration.
-- Create the instructor and grader users, and turn off sign-ups.
-- Connect Render to the GitHub repo.
-- Scan the QR code with a real phone.
-- Take the database screenshots.
+- **Student:** "I don't have any details, just make it easily accessible for both."
+- **Agent:** generated one shared instructor login and a SQL script that creates it in Supabase Auth, kept in a git-ignored `private/` folder. A login button with the password built in would have exposed it in the public repo and let anyone change surveys, so the agent didn't add one. It tested the script on local Supabase: re-running it is safe, and logging in through the auth API works.
+- **Student:** "It's due soon, give me all the deliverables."
+- **Agent:**
+  - Restarted local Supabase with Studio, reactivated a demo survey, and sent 5 submissions through the public API.
+  - Used Playwright with Chrome to capture 13 screenshots: the schema diagram, all 5 tables, instructor pages, and the student view at phone size.
+  - Wrote `docs/SUBMISSION.md` and made PDFs of the summary and this history.
+
+## 11. Done by the student
+
+- Created the hosted Supabase project, ran the migration, and turned off sign-ups.
+- Deployed with the Render Blueprint.
+
+The agent confirmed the hosted setup from outside: tables exist, RLS blocks anonymous reads of results and survey edits, and sign-ups are disabled.
