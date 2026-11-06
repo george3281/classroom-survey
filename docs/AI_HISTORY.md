@@ -8,15 +8,15 @@ Agent: **Claude Code** (Anthropic), in the Claude desktop app. This is a summary
 
 **Agent:**
 - Read all five specs (Specification, DATABASE, API, UI, TODO).
-- Checked the local tools. Node 26, Docker, and `gh` were installed. `gh` was not logged in, and there was no Supabase or Cloudflare account access.
-- Concluded it could build and fully test locally. Creating the hosted Supabase project, the GitHub repo, and the Cloudflare site needs the student's own accounts.
+- Checked the local tools. Node 26, Docker, and `gh` were installed. `gh` was not logged in, and there was no Supabase or hosting account access.
+- Concluded it could build and fully test locally. Creating the hosted Supabase project, the GitHub repo, and the hosting site needs the student's own accounts.
 
 ## 2. Scaffold
 
 - Ran `npm create vite` with the React + TypeScript template.
 - Installed Tailwind v4, React Router, supabase-js, Recharts, and qrcode.
 - Removed the template's demo files.
-- Added `.env.example`, ignored all other `.env*` files in git, and added `public/_redirects` for SPA routing.
+- Added `.env.example`, ignored all other `.env*` files in git, and added `public/_redirects` for SPA routing (later replaced by `render.yaml`).
 
 ## 3. Database migration
 
@@ -76,11 +76,17 @@ The agent started Docker Desktop, ran `npx supabase init` and `npx supabase star
 - Updated TODO.md to match reality. The provided copy had deployment items pre-checked; they were unchecked until actually done.
 - Drafted DEVELOPMENT_SUMMARY.md and this file.
 
-## 8. Remaining steps for the student
+## 8. GitHub and hosting
+
+- After the student ran `gh auth login`, the agent created the public repo `george3281/classroom-survey` with `gh repo create` and pushed.
+- The student chose **Render** over Cloudflare Pages. The agent added `render.yaml` (static site, Node 22, `/*` -> `/index.html` rewrite, env vars entered in the dashboard) and removed the Cloudflare-only `public/_redirects`.
+- **Verification:** ran `npm ci && npm run build` on the committed files inside a Linux `node:22` Docker container, the same environment Render builds in. The build succeeded.
+
+## 9. Remaining steps for the student
 
 These need the student's own accounts, so they are done by hand:
 - Create the hosted Supabase project and run the migration.
 - Create the instructor and grader users, and turn off sign-ups.
-- Push to GitHub and connect Cloudflare Pages.
+- Connect Render to the GitHub repo.
 - Scan the QR code with a real phone.
 - Take the database screenshots.

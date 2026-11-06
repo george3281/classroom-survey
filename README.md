@@ -4,14 +4,14 @@ A classroom survey web app. The instructor builds a survey, activates it, and pr
 
 - **Frontend:** React 19 + TypeScript + Vite + Tailwind CSS, React Router, Recharts, `qrcode`
 - **Backend/DB:** Supabase (PostgreSQL + Auth + auto-generated REST API), secured with Row Level Security
-- **Hosting:** Cloudflare Pages (static site); the database stays on Supabase
+- **Hosting:** Render (static site); the database stays on Supabase
 
 Specs: [Classroom_Survey_Web_App_Specification.md](Classroom_Survey_Web_App_Specification.md), [DATABASE.md](DATABASE.md), [API.md](API.md), [UI.md](UI.md), [TODO.md](TODO.md).
 
 ## Architecture
 
 ```text
-Browser (React SPA on Cloudflare Pages)
+Browser (React SPA on Render)
    |  supabase-js over HTTPS, with the public anon key
    v
 Supabase
@@ -53,7 +53,7 @@ supabase/
 tests/
   db.test.mjs        runs the migration in PGlite and tests RLS + RPCs as anon/authenticated
   results.test.ts    result percentages and CSV escaping
-public/_redirects    SPA fallback for Cloudflare Pages
+render.yaml          Render static-site Blueprint (build, SPA rewrite, env var names)
 ```
 
 ## Setup
@@ -102,14 +102,17 @@ npm test
 
 `tests/db.test.mjs` loads the real migration into an in-process Postgres (PGlite), creates the same `anon`/`authenticated` roles Supabase uses, and checks: students can't insert/update/delete surveys or read responses; drafts and closed surveys are invisible to students; only one survey can be active; duplicate, incomplete, wrong-choice and closed-survey submissions are rejected; deleting a survey cascades.
 
-## Deploy (Cloudflare Pages)
+## Deploy (Render)
+
+The repo includes [render.yaml](render.yaml), a Render Blueprint for a free static site. It builds with `npm ci && npm run build`, publishes `dist`, pins Node 22, and rewrites every path to `/index.html` so `/s/<slug>` and `/dashboard` work on refresh and from QR codes.
 
 1. Push this repo to GitHub.
-2. Cloudflare dashboard -> **Workers & Pages -> Create -> Pages -> Connect to Git** -> pick the repo.
-3. Build settings: framework preset **React (Vite)**, build command `npm run build`, output directory `dist`.
-4. **Environment variables (Production):** `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`. Vite bakes these into the bundle at build time, so redeploy after changing them.
-5. Deploy. `public/_redirects` sends every path to `index.html`, so `/s/<slug>` and `/dashboard` work on refresh.
-6. In Supabase **Authentication -> URL Configuration**, set the Site URL to the Pages URL.
+2. Render dashboard -> **New -> Blueprint** -> connect the GitHub repo. Render reads `render.yaml`.
+3. When prompted, enter `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (marked `sync: false`, so they are never stored in the repo). Vite bakes them into the bundle at build time, so trigger a redeploy after changing them.
+4. Apply. Every push to `main` redeploys automatically.
+5. In Supabase **Authentication -> URL Configuration**, set the Site URL to the `https://<name>.onrender.com` address.
+
+Without Blueprints: **New -> Static Site**, build command `npm ci && npm run build`, publish directory `dist`, add the two env vars, then under **Redirects/Rewrites** add source `/*`, destination `/index.html`, action **Rewrite**.
 
 QR codes use `window.location.origin`, so they automatically point at whichever host serves the app.
 

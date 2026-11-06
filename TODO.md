@@ -2,7 +2,7 @@
 
 ## Status
 
-All MVP phases (1-14) are implemented and tested locally against a real Supabase stack (`npx supabase start`) plus `npm test`. Unchecked items need the hosted Supabase project, GitHub, Cloudflare, or a real phone. Phase 16 is post-MVP and out of scope.
+All MVP phases (1-14) are implemented and tested locally against a real Supabase stack (`npx supabase start`) plus `npm test`. Unchecked items need the hosted Supabase project, Render, or a real phone. Hosting uses Render instead of Cloudflare Pages (the assignment allows any suitable host). Phase 16 is post-MVP and out of scope.
 
 ## Purpose
 
@@ -224,11 +224,11 @@ This roadmap breaks the implementation into small, testable phases ordered from 
 # Phase 15 — Deployment
 
 - [x] Push the project to GitHub.
-- [ ] Create the Cloudflare Pages site.
-- [ ] Connect Cloudflare Pages to the GitHub repository.
+- [ ] Create the Render static site. (Replaces Cloudflare Pages; see `render.yaml`.)
+- [ ] Connect Render to the GitHub repository.
 - [ ] Configure production environment variables.
 - [ ] Deploy the application.
-- [x] Configure SPA routing.
+- [x] Configure SPA routing. (`render.yaml` rewrite `/*` -> `/index.html`.)
 - [ ] Verify production login.
 - [ ] Verify QR codes point to the production URL.
 - [ ] Test student submissions in production.

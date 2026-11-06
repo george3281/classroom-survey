@@ -1,0 +1,20 @@
+# Render Blueprint: static site for the Classroom Survey SPA.
+services:
+  - type: web
+    name: classroom-survey
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    # Send every path (e.g. /s/abc123, /dashboard) to the SPA so refreshes and QR links work.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # sync: false = Render asks for the value in the dashboard; it is never stored in the repo.
+      - key: VITE_SUPABASE_URL
+        sync: false
+      - key: VITE_SUPABASE_ANON_KEY
+        sync: false
